@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дашборд — Finpath</title>
+<meta name="description" content="Финансовый дашборд Finpath: баланс, денежный поток, инвестиции, операции и ИИ-ассистент в одном интерфейсе.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+<!-- ============================ HEADER ============================ -->
+<header class="header" id="header">
+  <div class="shell header__inner">
+    <a href="index.html" class="logo" aria-label="Finpath — на главную">
+      <svg class="logo__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2 15.2 8.8 22 12l-6.8 3.2L12 22l-3.2-6.8L2 12l6.8-3.2z" fill="currentColor"/>
+        <circle cx="12" cy="12" r="2.6" fill="#0a0a0a"/>
+      </svg>
+      Finpath
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Разделы дашборда">
+      <a class="nav__link is-active" href="#" aria-current="page">Дашборд</a>
+      <a class="nav__link" href="#flow">Платежи</a>
+      <a class="nav__link" href="#analytics">Аналитика</a>
+      <a class="nav__link" href="#cards">Карты</a>
+      <a class="nav__link" href="#ai">AI Finpath</a>
+      <a class="nav__link" href="index.html#pricing">Тарифы</a>
+      <a class="nav__link" href="index.html">Сайт</a>
+    </nav>
+
+    <div class="header__actions">
+      <div class="theme-switch" role="group" aria-label="Тема оформления">
+        <button class="theme-switch__btn" data-theme-set="light" type="button">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/>
+          </svg>
+          Светлая
+        </button>
+        <button class="theme-switch__btn is-active" data-theme-set="dark" type="button">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+          </svg>
+          Тёмная
+        </button>
+      </div>
+
+      <button class="icon-btn" type="button" aria-label="Уведомления">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 4 1.5 5.5 1.5 5.5H4.5S6 13 6 9z"/><path d="M10 18a2 2 0 0 0 4 0"/></svg>
+      </button>
+      <button class="icon-btn" type="button" aria-label="Настройки">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2 2 2 0 1 1-4 0 1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 4 15a2 2 0 1 1 0-4 1.7 1.7 0 0 0 1.2-2.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 11 4a2 2 0 1 1 4 0 1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.7 1.7 0 0 0 20 11a2 2 0 1 1 0 4z"/></svg>
+      </button>
+      <span class="avatar" aria-label="Профиль: Степан">СК</span>
+
+      <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================ DASHBOARD ============================ -->
+<main class="page">
+  <div class="shell app">
+
+    <!-- Приветствие и инструменты -->
+    <div class="app__tools">
+      <div class="app__greeting">
+        <a href="index.html" class="icon-btn" aria-label="Назад на сайт">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        </a>
+        <h1>Здравствуйте, Степан</h1>
+      </div>
+
+      <button class="icon-btn" type="button" aria-label="Поиск">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>
+      </button>
+      <button class="icon-btn" type="button" aria-label="Фильтры">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M7 20V9M7 5V4M17 20v-1M17 15V4"/><circle cx="7" cy="7" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+      </button>
+      <button class="icon-btn" type="button" aria-label="Период">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+      </button>
+      <span class="card-chip">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg>
+        <span class="num">•••• 3625</span>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </span>
+    </div>
+
+    <!-- Первый ряд -->
+    <div class="app__grid">
+
+      <!-- Общий баланс -->
+      <section class="panel col-5 reveal" aria-labelledby="balance-title">
+        <div class="panel__head">
+          <div>
+            <div class="panel__sub" id="balance-title">Общий баланс</div>
+            <div class="balance__amount num"><span class="cur">₽</span>3 428 900<span class="frac">,00</span></div>
+            <div class="balance__delta">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              +4,8% за месяц
+            </div>
+          </div>
+          <div class="seg" role="group" aria-label="Валюта">
+            <button type="button">€</button>
+            <button type="button">$</button>
+            <button class="is-active" type="button">₽</button>
+          </div>
+        </div>
+
+        <div class="blobs" role="img" aria-label="Распределение баланса: дебетовая 412 700 ₽, основная 1 104 300 ₽, накопления 1 911 900 ₽">
+          <svg viewBox="0 0 460 196" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <defs>
+              <filter id="goo-b" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="11" result="b"/>
+                <feColorMatrix in="b" mode="matrix"
+                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"/>
+              </filter>
+            </defs>
+            <g filter="url(#goo-b)">
+              <circle cx="66" cy="110" r="50" fill="var(--surface-3)"/>
+              <circle cx="140" cy="106" r="27" fill="var(--surface-3)"/>
+              <circle cx="226" cy="100" r="76" fill="var(--lime)"/>
+              <circle cx="312" cy="102" r="27" fill="var(--surface-3)"/>
+              <circle cx="392" cy="106" r="58" fill="var(--surface-3)"/>
+            </g>
+          </svg>
+          <div class="blobs__labels" aria-hidden="true">
+            <div class="blob-label" style="left:14.3%;top:56%"><b>412 700</b><span>Дебетовая</span></div>
+            <div class="blob-label blob-label--on-lime" style="left:49%;top:51%"><b>1 104 300</b><span>Основная</span></div>
+            <div class="blob-label" style="left:85%;top:54%"><b>1 911 900</b><span>Накопления</span></div>
+          </div>
+        </div>
+
+        <div class="balance__actions">
+          <button class="btn btn--ghost" type="button">Получить</button>
+          <button class="btn btn--primary" type="button">Отправить</button>
+        </div>
+      </section>
+
+      <!-- Инвестиции -->
+      <section class="panel col-3 reveal" style="--d:80ms" aria-labelledby="inv-title">
+        <div class="panel__head">
+          <span class="panel__title" id="inv-title">Инвестиции</span>
+          <button class="corner-btn" type="button" aria-label="Открыть портфель">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </button>
+        </div>
+        <div class="inv">
+          <div class="inv__row" tabindex="0" role="button">
+            <span class="brand" aria-hidden="true">Я</span>
+            <span class="inv__name"><b>Яндекс</b><span>3 352 ₽</span></span>
+            <span class="inv__pct"><b class="up">+4,48%</b><span>за месяц</span></span>
+          </div>
+          <div class="inv__row is-active" tabindex="0" role="button">
+            <span class="brand" aria-hidden="true">С</span>
+            <span class="inv__name"><b>Сбербанк</b><span>2 322 ₽</span></span>
+            <span class="inv__pct"><b class="up">+3,12%</b><span>за месяц</span></span>
+          </div>
+          <div class="inv__row" tabindex="0" role="button">
+            <span class="brand" aria-hidden="true">Л</span>
+            <span class="inv__name"><b>Лукойл</b><span>4 221 ₽</span></span>
+            <span class="inv__pct"><b class="down">−0,28%</b><span>за месяц</span></span>
+          </div>
+          <div class="inv__row" tabindex="0" role="button">
+            <span class="brand" aria-hidden="true">Н</span>
+            <span class="inv__name"><b>Норникель</b><span>1 894 ₽</span></span>
+            <span class="inv__pct"><b class="up">+1,64%</b><span>за месяц</span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ИИ-ассистент -->
+      <section class="panel ai col-4 reveal" id="ai" style="--d:160ms" aria-labelledby="ai-title">
+        <div class="panel__head">
+          <span class="panel__title" id="ai-title" style="display:flex;align-items:center;gap:8px">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v4M12 17v4M5 12H3M21 12h-2M6.5 6.5 5 5M19 19l-1.5-1.5M17.5 6.5 19 5M5 19l1.5-1.5"/><circle cx="12" cy="12" r="3.2"/></svg>
+            ИИ-ассистент
+          </span>
+          <button class="corner-btn" type="button" aria-label="Открыть чат целиком">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </button>
+        </div>
+
+        <div class="ai__wave" aria-hidden="true">
+          <svg viewBox="0 0 120 40">
+            <path d="M2 20q7-17 14 0t14 0 14 0 14 0 14 0 14 0 14 0"/>
+            <path d="M2 20q7 17 14 0t14 0 14 0 14 0 14 0 14 0 14 0"/>
+          </svg>
+        </div>
+
+        <p class="ai__q">Чем помочь сегодня?</p>
+
+        <div class="ai__chips">
+          <button class="ai__chip" type="button">Спланировать бюджет</button>
+          <button class="ai__chip" type="button">Найти лишние траты</button>
+          <button class="ai__chip" type="button">Прогноз остатка</button>
+        </div>
+
+        <div class="ai__answer" id="aiAnswer" role="status" aria-live="polite"></div>
+
+        <form class="ai__input" id="aiForm">
+          <div class="ai__field">
+            <label class="sr-only" for="aiInput">Вопрос ассистенту</label>
+            <input id="aiInput" type="text" placeholder="Спросите что угодно…" autocomplete="off">
+            <button class="ai__send" type="submit" aria-label="Отправить">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            </button>
+          </div>
+          <div class="ai__meta">
+            <span class="ai__flag"><span class="pill__dot"></span>Глубокий анализ</span>
+            <span class="ai__model">
+              Finpath AI 2.0
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </span>
+          </div>
+        </form>
+      </section>
+
+      <!-- Денежный поток -->
+      <section class="panel col-8 reveal" id="flow" style="--d:60ms" aria-labelledby="flow-title">
+        <div class="flow__top">
+          <div>
+            <div class="panel__sub" id="flow-title">Денежный поток</div>
+            <div class="flow__amount num"><span class="cur">₽</span>967 881<span class="frac">,12</span></div>
+          </div>
+          <div style="display:flex;gap:var(--sp-2);align-items:center;flex-wrap:wrap">
+            <div class="seg" id="flowSeg" role="group" aria-label="Тип потока">
+              <button class="is-active" type="button">Доход</button>
+              <button type="button">Расход</button>
+              <button type="button">Накопления</button>
+            </div>
+            <span class="card-chip">
+              За год
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="chart" id="chart" role="img" aria-label="Столбчатая диаграмма денежного потока по месяцам"></div>
+      </section>
+
+      <!-- Операции -->
+      <section class="panel col-4 reveal" style="--d:140ms" aria-labelledby="tx-title">
+        <div class="panel__head">
+          <span class="panel__title" id="tx-title">Операции</span>
+          <button class="corner-btn" type="button" aria-label="Все операции">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </button>
+        </div>
+        <div class="tx">
+          <div class="tx__row">
+            <span class="brand" aria-hidden="true">P</span>
+            <span class="tx__name">PlayStation Store</span>
+            <span class="tx__date">28.03.26</span>
+            <span class="tx__sum down">−4 448 ₽</span>
+          </div>
+          <div class="tx__row">
+            <span class="brand" aria-hidden="true">А</span>
+            <span class="tx__name">Алексей Смирнов</span>
+            <span class="tx__date">28.03.26</span>
+            <span class="tx__sum up">+28 000 ₽</span>
+          </div>
+          <div class="tx__row">
+            <span class="brand" aria-hidden="true">Я</span>
+            <span class="tx__name">Яндекс Плюс</span>
+            <span class="tx__date">27.03.26</span>
+            <span class="tx__sum down">−1 298 ₽</span>
+          </div>
+          <div class="tx__row">
+            <span class="brand" aria-hidden="true">O</span>
+            <span class="tx__name">Ozon</span>
+            <span class="tx__date">25.03.26</span>
+            <span class="tx__sum down">−12 824 ₽</span>
+          </div>
+          <div class="tx__row">
+            <span class="brand" aria-hidden="true">М</span>
+            <span class="tx__name">Мария Ковалёва</span>
+            <span class="tx__date">24.03.26</span>
+            <span class="tx__sum up">+52 800 ₽</span>
+          </div>
+          <div class="tx__row">
+            <span class="brand" aria-hidden="true">П</span>
+            <span class="tx__name">Пятёрочка</span>
+            <span class="tx__date">24.03.26</span>
+            <span class="tx__sum down">−3 617 ₽</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Карты -->
+      <div class="col-4 reveal" id="cards" style="--d:60ms">
+        <div class="bankcard bankcard--lime">
+          <span class="bankcard__glow" aria-hidden="true"></span>
+          <div class="bankcard__top"><span>Finpath Основная</span><span>VISA</span></div>
+          <div class="bankcard__num num">•••• •••• •••• 3625</div>
+          <div class="bankcard__bottom">
+            <span>Доступно<b class="num">1 104 300 ₽</b></span>
+            <span>04/29</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-4 reveal" style="--d:120ms">
+        <div class="bankcard">
+          <span class="bankcard__glow" aria-hidden="true"></span>
+          <div class="bankcard__top"><span>Finpath Виртуальная</span><span>MIR</span></div>
+          <div class="bankcard__num num">•••• •••• •••• 8814</div>
+          <div class="bankcard__bottom">
+            <span>Лимит на подписки<b class="num">15 000 ₽</b></span>
+            <span>11/28</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Цели -->
+      <section class="panel col-4 reveal" style="--d:180ms" aria-labelledby="goals-title">
+        <div class="panel__head">
+          <span class="panel__title" id="goals-title">Цели накоплений</span>
+          <span class="panel__sub">3 активные</span>
+        </div>
+        <div class="goal">
+          <div class="goal__row">Резервный фонд <span class="num">780 000 / 1 000 000 ₽</span></div>
+          <div class="track"><span class="track__fill" style="--p:78%"></span></div>
+        </div>
+        <div class="goal">
+          <div class="goal__row">Отпуск <span class="num">126 000 / 300 000 ₽</span></div>
+          <div class="track"><span class="track__fill" style="--p:42%"></span></div>
+        </div>
+        <div class="goal">
+          <div class="goal__row">Ремонт <span class="num">150 000 / 600 000 ₽</span></div>
+          <div class="track"><span class="track__fill" style="--p:25%"></span></div>
+        </div>
+      </section>
+
+      <!-- Категории -->
+      <section class="panel col-8 reveal" id="analytics" style="--d:60ms" aria-labelledby="cat-title">
+        <div class="panel__head">
+          <span class="panel__title" id="cat-title">Категории расходов</span>
+          <span class="panel__sub">март 2026</span>
+        </div>
+        <div class="donut">
+          <div class="donut__chart" role="img" aria-label="Жильё 34%, продукты 26%, транспорт 21%, прочее 19%">
+            <svg viewBox="0 0 42 42" style="transform:rotate(-90deg)" aria-hidden="true">
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--surface-3)" stroke-width="5"/>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--accent-ink)" stroke-width="5" stroke-dasharray="34 66" stroke-linecap="round"/>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--lime-deep)" stroke-width="5" stroke-dasharray="26 74" stroke-dashoffset="-34" stroke-linecap="round"/>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--text-3)" stroke-width="5" stroke-dasharray="21 79" stroke-dashoffset="-60" stroke-linecap="round"/>
+            </svg>
+            <div class="donut__center">
+              <b class="num">184 200</b>
+              <span>всего, ₽</span>
+            </div>
+          </div>
+          <div class="legend">
+            <div class="legend__row"><span class="legend__swatch" style="--c:var(--lime)"></span>Жильё<span class="num">62 600</span></div>
+            <div class="legend__row"><span class="legend__swatch" style="--c:var(--lime-deep)"></span>Продукты<span class="num">47 900</span></div>
+            <div class="legend__row"><span class="legend__swatch" style="--c:var(--text-3)"></span>Транспорт<span class="num">38 700</span></div>
+            <div class="legend__row"><span class="legend__swatch" style="--c:var(--surface-3)"></span>Прочее<span class="num">35 000</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Инсайт -->
+      <section class="panel col-4 reveal" style="--d:140ms" aria-labelledby="insight-title">
+        <div class="panel__head">
+          <span class="panel__title" id="insight-title">Инсайт от ИИ</span>
+          <span class="pill pill--lime" style="padding:5px 12px;font-size:var(--fs-xs)">новое</span>
+        </div>
+        <p style="font-size:var(--fs-sm);color:var(--text-2)">
+          Подписки выросли на <b style="color:var(--text)">2 340 ₽</b> за месяц.
+          Три сервиса не использовались более 60 дней.
+        </p>
+        <div class="bento__spacer"></div>
+        <div class="balance__delta" style="color:var(--accent-ink)">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>
+          Экономия 28 080 ₽ в год
+        </div>
+        <button class="btn btn--ghost" type="button" style="justify-content:space-between;width:100%">
+          Отключить
+          <svg class="btn__arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </button>
+      </section>
+
+    </div>
+
+    <p style="margin-top:var(--sp-4);color:var(--text-3);font-size:var(--fs-xs)">
+      Демонстрационные данные. <a href="index.html" class="back-link">Вернуться на сайт</a>
+    </p>
+  </div>
+</main>
+
+<script src="js/main.js"></script>
+</body>
+</html>

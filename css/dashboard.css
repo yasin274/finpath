@@ -1,0 +1,932 @@
+/* ============================================================
+   FINPATH — dashboard UI
+   Shared by the landing hero preview (.app--preview) and the
+   full dashboard page.
+   ============================================================ */
+
+.app {
+  display: grid;
+  gap: var(--sp-3);
+}
+
+/* ---- App top bar --------------------------------------------------- */
+.app__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.app__nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.app__nav::-webkit-scrollbar {
+  display: none;
+}
+
+.app__nav a {
+  padding: 8px 15px;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.app__nav a:hover {
+  color: var(--text);
+}
+
+.app__nav a.is-active {
+  background: var(--surface-3);
+  color: var(--text);
+}
+
+.app__bar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-left: auto;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-3);
+  display: grid;
+  place-items: center;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--accent-ink);
+  flex: none;
+}
+
+/* ---- Tool row ------------------------------------------------------ */
+.app__tools {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.app__greeting {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-right: auto;
+}
+
+.app__greeting h1 {
+  font-size: clamp(1.5rem, 3vw, 2.35rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+
+.card-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.card-chip svg {
+  color: var(--text-3);
+  flex: none;
+}
+
+/* ---- Grid ---------------------------------------------------------- */
+.app__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--sp-3);
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+
+.panel__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-2);
+}
+
+.panel__title {
+  font-size: 1.02rem;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  color: var(--text);
+}
+
+.panel__sub {
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+/* Column spans */
+.col-3 { grid-column: span 3; }
+.col-4 { grid-column: span 4; }
+.col-5 { grid-column: span 5; }
+.col-6 { grid-column: span 6; }
+.col-7 { grid-column: span 7; }
+.col-8 { grid-column: span 8; }
+.col-12 { grid-column: span 12; }
+
+/* ---- Segmented toggle (EUR / USD, Income / Expense …) -------------- */
+.seg {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: var(--surface-inset);
+  flex: none;
+}
+
+.seg button {
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.seg button:hover {
+  color: var(--text);
+}
+
+.seg button.is-active {
+  background: var(--surface-3);
+  color: var(--text);
+}
+
+/* ---- Balance panel ------------------------------------------------- */
+.balance__amount {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: clamp(1.5rem, 3.4vw, 2.9rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  /* сумма не должна ломаться посередине числа на узких панелях */
+  white-space: nowrap;
+}
+
+.balance__amount .cur {
+  font-size: 0.52em;
+  color: var(--text-3);
+}
+
+.balance__amount .frac {
+  color: var(--text-3);
+}
+
+.balance__delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-xs);
+  color: var(--up);
+}
+
+/* Metaball account chart */
+.blobs {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2.35;
+  min-height: 130px;
+}
+
+.blobs svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.blobs__labels {
+  position: absolute;
+  inset: 0;
+}
+
+.blob-label {
+  position: absolute;
+  translate: -50% -50%;
+  text-align: center;
+  line-height: 1.15;
+  pointer-events: none;
+}
+
+.blob-label b {
+  display: block;
+  font-size: clamp(0.75rem, 1.35vw, 1.02rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.blob-label span {
+  font-size: clamp(0.56rem, 0.8vw, 0.7rem);
+  color: var(--text-3);
+}
+
+.blob-label--on-lime b {
+  color: var(--on-lime);
+}
+
+.blob-label--on-lime span {
+  color: rgba(10, 10, 10, 0.62);
+}
+
+.balance__actions {
+  display: flex;
+  gap: var(--sp-2);
+  margin-top: auto;
+}
+
+.balance__actions .btn {
+  flex: 1;
+  padding: 13px 18px;
+}
+
+/* ---- Investments list --------------------------------------------- */
+.inv {
+  display: grid;
+  gap: 8px;
+}
+
+.inv__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 13px 16px;
+  border-radius: var(--r-md);
+  background: var(--surface-inset);
+  border: 1px solid var(--border);
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  cursor: pointer;
+}
+
+.inv__row:hover {
+  transform: translateX(3px);
+  border-color: var(--border-strong);
+}
+
+.inv__row.is-active {
+  background: var(--lime);
+  border-color: var(--lime);
+  color: var(--on-lime);
+}
+
+.brand {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--surface-3);
+  color: var(--text);
+  flex: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.inv__row.is-active .brand {
+  background: #0a0a0a;
+  color: #fff;
+}
+
+.inv__name {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+  flex: 1;
+}
+
+.inv__name b {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.inv__name span {
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.inv__row.is-active .inv__name span {
+  color: rgba(10, 10, 10, 0.6);
+}
+
+.inv__pct {
+  text-align: right;
+  display: grid;
+  gap: 1px;
+  flex: none;
+}
+
+.inv__pct b {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.inv__pct span {
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+.inv__row.is-active .inv__pct span {
+  color: rgba(10, 10, 10, 0.6);
+}
+
+.up { color: var(--up); }
+.down { color: var(--down); }
+.inv__row.is-active .up { color: var(--on-lime); }
+
+/* ---- AI assistant -------------------------------------------------- */
+.ai {
+  align-items: stretch;
+  text-align: center;
+}
+
+.ai__wave {
+  height: 72px;
+  display: grid;
+  place-items: center;
+  margin-top: 4px;
+}
+
+.ai__wave svg {
+  height: 100%;
+  width: auto;
+  overflow: visible;
+}
+
+.ai__wave path {
+  fill: none;
+  stroke: var(--accent-ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+  animation: aiWave 3.6s ease-in-out infinite alternate;
+}
+
+.ai__wave path:nth-child(2) {
+  stroke: var(--text);
+  opacity: 0.28;
+  animation-delay: -1.2s;
+}
+
+@keyframes aiWave {
+  from { transform: scaleY(0.55) translateY(2px); }
+  to { transform: scaleY(1.1); }
+}
+
+.ai__q {
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  font-weight: 400;
+  letter-spacing: -0.028em;
+}
+
+.ai__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  justify-content: center;
+}
+
+.ai__chip {
+  padding: 7px 13px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  background: var(--surface-inset);
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  transition: all var(--dur) var(--ease);
+}
+
+.ai__chip:hover {
+  background: var(--lime);
+  border-color: var(--lime);
+  color: var(--on-lime);
+}
+
+.ai__input {
+  margin-top: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface-inset);
+  padding: 12px 14px;
+  display: grid;
+  gap: 10px;
+  text-align: left;
+  transition: border-color var(--dur) var(--ease);
+}
+
+.ai__input:focus-within {
+  border-color: var(--lime);
+}
+
+.ai__field {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.ai__field input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-size: var(--fs-sm);
+  outline: none;
+}
+
+.ai__field input::placeholder {
+  color: var(--text-3);
+}
+
+.ai__send {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--on-lime);
+  flex: none;
+  transition: transform var(--dur) var(--ease);
+}
+
+.ai__send:hover {
+  transform: translateY(-2px);
+}
+
+.ai__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+.ai__flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  color: var(--accent-ink);
+}
+
+.ai__model {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ai__answer {
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface-inset);
+  padding: 13px 15px;
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+  display: none;
+}
+
+.ai__answer.is-shown {
+  display: block;
+  animation: fadeUp 420ms var(--ease);
+}
+
+.ai__answer b {
+  color: var(--text);
+  font-weight: 500;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---- Cashflow ------------------------------------------------------ */
+.flow__top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.flow__amount {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: clamp(1.4rem, 3vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.flow__amount .cur,
+.flow__amount .frac {
+  color: var(--text-3);
+}
+
+.flow__amount .cur {
+  font-size: 0.55em;
+}
+
+.chart {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(4px, 1vw, 12px);
+  /* верхний отступ — место под всплывающую подсказку пикового столбца,
+     иначе она вылезает на строку с переключателем */
+  padding-top: 34px;
+  height: clamp(154px, 19vw, 224px);
+  margin-top: auto;
+}
+
+.bar {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.bar__fill {
+  width: 100%;
+  border-radius: var(--r-pill);
+  background: var(--surface-3);
+  height: var(--h, 40%);
+  transform-origin: bottom;
+  animation: growBar 720ms var(--ease) backwards;
+  animation-delay: var(--d, 0ms);
+  transition: background var(--dur) var(--ease);
+}
+
+.bar:hover .bar__fill {
+  background: var(--border-strong);
+}
+
+.bar.is-peak .bar__fill {
+  background: linear-gradient(180deg, var(--lime) 0%, var(--lime-deep) 100%);
+  box-shadow: 0 0 34px -8px var(--lime-glow);
+}
+
+.bar.is-peak:hover .bar__fill {
+  background: linear-gradient(180deg, var(--lime) 0%, var(--lime-deep) 100%);
+}
+
+.bar__label {
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+.bar__tip {
+  position: absolute;
+  bottom: calc(var(--h, 40%) + 26px);
+  left: 50%;
+  translate: -50% 0;
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+  background: var(--lime);
+  color: var(--on-lime);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+  transform: translateY(4px);
+  pointer-events: none;
+}
+
+.bar.is-peak .bar__tip,
+.bar:hover .bar__tip {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes growBar {
+  from { transform: scaleY(0); opacity: 0; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+
+/* ---- Transactions -------------------------------------------------- */
+.tx {
+  display: grid;
+  gap: 2px;
+}
+
+.tx__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 11px 10px;
+  border-radius: var(--r-md);
+  transition: background var(--dur) var(--ease);
+  cursor: pointer;
+  /* Строка — элемент грида .tx, а у элементов грида min-width по умолчанию
+     auto: сжаться ниже своего min-content они не могут. На 375 px из-за этого
+     строка вылезала за правый край карточки на 28 px, и сумма операции
+     обрезалась краем окна (горизонтальной прокрутки при этом не появлялось —
+     её гасит overflow-x: hidden на body, поэтому дефект легко пропустить).
+     Обнуление возвращает возможность сжиматься, а укоротить длинное название
+     берёт на себя .tx__name с overflow: hidden. */
+  min-width: 0;
+}
+
+.tx__row:hover {
+  background: var(--surface-inset);
+}
+
+.tx__name {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tx__date {
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+  flex: none;
+}
+
+.tx__sum {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  min-width: 92px;
+  flex: none;
+}
+
+/* ---- Cards / goals ------------------------------------------------- */
+.bankcard {
+  position: relative;
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(145deg, var(--surface-3), var(--surface-inset));
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.bankcard--lime {
+  background: linear-gradient(145deg, var(--lime) 0%, var(--lime-deep) 100%);
+  border-color: var(--lime);
+  color: var(--on-lime);
+}
+
+.bankcard__glow {
+  position: absolute;
+  right: -20%;
+  top: -40%;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.16), transparent 70%);
+  pointer-events: none;
+}
+
+.bankcard__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.02em;
+  opacity: 0.72;
+}
+
+.bankcard__num {
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+}
+
+.bankcard__bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  font-size: var(--fs-xs);
+}
+
+.bankcard__bottom b {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Goal progress */
+.goal {
+  display: grid;
+  gap: 10px;
+}
+
+.goal__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+}
+
+.goal__row span {
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.track {
+  height: 7px;
+  border-radius: var(--r-pill);
+  background: var(--surface-3);
+  overflow: hidden;
+}
+
+.track__fill {
+  display: block; /* span по умолчанию inline — width/height к нему не применятся */
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: var(--lime);
+  width: var(--p, 50%);
+}
+
+/* ---- Donut categories --------------------------------------------- */
+.donut {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.donut__chart {
+  position: relative;
+  width: 148px;
+  height: 148px;
+  flex: none;
+}
+
+.donut__center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  gap: 2px;
+}
+
+.donut__center b {
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+}
+
+.donut__center span {
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+.legend {
+  display: grid;
+  gap: 9px;
+  flex: 1;
+  min-width: 150px;
+}
+
+.legend__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-sm);
+}
+
+.legend__swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex: none;
+  background: var(--c, var(--lime));
+}
+
+.legend__row span:last-child {
+  margin-left: auto;
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Preview variant (landing hero) ------------------------------- */
+.app--preview {
+  pointer-events: none;
+}
+
+.app--preview .panel {
+  padding: 18px;
+}
+
+/* ---- Dashboard page chrome ---------------------------------------- */
+.page {
+  padding-block: var(--sp-4) var(--sp-6);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-sm);
+  color: var(--text-3);
+  transition: color var(--dur) var(--ease);
+}
+
+.back-link:hover {
+  color: var(--accent-ink);
+}
+
+/* ---- Dashboard responsive ----------------------------------------- */
+@media (max-width: 1080px) {
+  .col-3, .col-4, .col-5 { grid-column: span 6; }
+  .col-7, .col-8 { grid-column: span 12; }
+}
+
+@media (max-width: 760px) {
+  .app__grid > * {
+    grid-column: span 12 !important;
+  }
+
+  .panel {
+    padding: 18px;
+  }
+
+  .app__greeting {
+    width: 100%;
+  }
+
+  .app__tools {
+    flex-wrap: wrap;
+  }
+
+  .tx__sum {
+    min-width: 78px;
+  }
+
+  .bar__label {
+    font-size: 0.66rem;
+  }
+}

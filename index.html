@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finpath — ИИ-платформа для управления финансами</title>
+<meta name="description" content="Finpath объединяет аналитику расходов, управление картами и отчётность в реальном времени в одном интерфейсе с ИИ-ассистентом.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+<!-- ============================ HEADER ============================ -->
+<header class="header" id="header">
+  <div class="shell header__inner">
+    <a href="index.html" class="logo" aria-label="Finpath — на главную">
+      <svg class="logo__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2 15.2 8.8 22 12l-6.8 3.2L12 22l-3.2-6.8L2 12l6.8-3.2z" fill="currentColor"/>
+        <circle cx="12" cy="12" r="2.6" fill="#0a0a0a"/>
+      </svg>
+      Finpath
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Основная навигация">
+      <a class="nav__link" href="#about">О платформе</a>
+      <a class="nav__link" href="#features">Возможности</a>
+      <a class="nav__link" href="#analytics">Аналитика</a>
+      <a class="nav__link" href="#pricing">Тарифы</a>
+      <a class="nav__link" href="dashboard.html">Дашборд</a>
+    </nav>
+
+    <div class="header__actions">
+      <div class="theme-switch" role="group" aria-label="Тема оформления">
+        <button class="theme-switch__btn" data-theme-set="light" type="button">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/>
+          </svg>
+          Светлая
+        </button>
+        <button class="theme-switch__btn is-active" data-theme-set="dark" type="button">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+          </svg>
+          Тёмная
+        </button>
+      </div>
+      <a href="#pricing" class="btn btn--ghost">Войти</a>
+      <a href="dashboard.html" class="btn btn--primary">Открыть демо</a>
+      <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="shell hero__inner">
+    <span class="eyebrow reveal"><span class="pill__dot"></span>ИИ-ассистент внутри вашего счёта</span>
+
+    <h1 class="hero__title reveal" style="--d:80ms">
+      Аналитика, карты и ИИ <em>в одном</em> дашборде
+    </h1>
+
+    <p class="hero__sub reveal" style="--d:160ms">
+      Finpath объединяет интеллектуальный анализ расходов, управление картами
+      и отчётность в реальном времени в единый выверенный интерфейс. Один экран
+      вместо десяти вкладок.
+    </p>
+
+    <div class="hero__cta reveal" style="--d:240ms">
+      <a href="dashboard.html" class="btn btn--primary">
+        Попробовать бесплатно
+        <svg class="btn__arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+      </a>
+      <a href="#analytics" class="btn btn--ghost">Как это работает</a>
+    </div>
+
+    <div class="hero__note reveal" style="--d:320ms">
+      <span><span class="pill__dot"></span>14 дней бесплатно</span>
+      <span><span class="pill__dot"></span>Без привязки карты</span>
+      <span><span class="pill__dot"></span>Шифрование AES-256</span>
+    </div>
+  </div>
+
+  <!-- Живое превью дашборда -->
+  <div class="shell">
+    <div class="hero__preview reveal" style="--d:400ms">
+      <div class="app app--preview">
+        <div class="app__grid">
+
+          <!-- Баланс -->
+          <div class="panel col-5">
+            <div class="panel__head">
+              <div>
+                <div class="panel__sub">Общий баланс</div>
+                <div class="balance__amount num"><span class="cur">₽</span>3 428 900<span class="frac">,00</span></div>
+              </div>
+              <div class="seg" aria-hidden="true">
+                <button class="is-active" type="button">₽</button>
+                <button type="button">$</button>
+              </div>
+            </div>
+
+            <div class="blobs">
+              <svg viewBox="0 0 460 196" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                <defs>
+                  <filter id="goo-a" x="-30%" y="-30%" width="160%" height="160%">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="11" result="b"/>
+                    <feColorMatrix in="b" mode="matrix"
+                      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"/>
+                  </filter>
+                </defs>
+                <g filter="url(#goo-a)">
+                  <circle cx="66" cy="110" r="50" fill="var(--surface-3)"/>
+                  <circle cx="140" cy="106" r="27" fill="var(--surface-3)"/>
+                  <circle cx="226" cy="100" r="76" fill="var(--lime)"/>
+                  <circle cx="312" cy="102" r="27" fill="var(--surface-3)"/>
+                  <circle cx="392" cy="106" r="58" fill="var(--surface-3)"/>
+                </g>
+              </svg>
+              <div class="blobs__labels">
+                <div class="blob-label" style="left:14.3%;top:56%"><b>412 700</b><span>Дебетовая</span></div>
+                <div class="blob-label blob-label--on-lime" style="left:49%;top:51%"><b>1 104 300</b><span>Основная</span></div>
+                <div class="blob-label" style="left:85%;top:54%"><b>1 911 900</b><span>Накопления</span></div>
+              </div>
+            </div>
+
+            <div class="balance__actions">
+              <span class="btn btn--ghost">Получить</span>
+              <span class="btn btn--ghost">Отправить</span>
+            </div>
+          </div>
+
+          <!-- Инвестиции -->
+          <div class="panel col-3">
+            <div class="panel__head">
+              <span class="panel__title">Инвестиции</span>
+              <span class="corner-btn" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </span>
+            </div>
+            <div class="inv">
+              <div class="inv__row">
+                <span class="brand">Я</span>
+                <span class="inv__name"><b>Яндекс</b><span>3 352 ₽</span></span>
+                <span class="inv__pct"><b class="up">+4,48%</b><span>за месяц</span></span>
+              </div>
+              <div class="inv__row is-active">
+                <span class="brand">С</span>
+                <span class="inv__name"><b>Сбербанк</b><span>2 322 ₽</span></span>
+                <span class="inv__pct"><b class="up">+3,12%</b><span>за месяц</span></span>
+              </div>
+              <div class="inv__row">
+                <span class="brand">Л</span>
+                <span class="inv__name"><b>Лукойл</b><span>4 221 ₽</span></span>
+                <span class="inv__pct"><b class="down">−0,28%</b><span>за месяц</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ИИ-ассистент -->
+          <div class="panel ai col-4">
+            <div class="panel__head">
+              <span class="panel__title" style="display:flex;align-items:center;gap:8px">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v4M12 17v4M5 12H3M21 12h-2M6.5 6.5 5 5M19 19l-1.5-1.5M17.5 6.5 19 5M5 19l1.5-1.5"/><circle cx="12" cy="12" r="3.2"/></svg>
+                ИИ-ассистент
+              </span>
+            </div>
+            <div class="ai__wave" aria-hidden="true">
+              <svg viewBox="0 0 120 40">
+                <path d="M2 20q7-17 14 0t14 0 14 0 14 0 14 0 14 0 14 0"/>
+                <path d="M2 20q7 17 14 0t14 0 14 0 14 0 14 0 14 0 14 0"/>
+              </svg>
+            </div>
+            <p class="ai__q">Чем помочь сегодня?</p>
+            <div class="ai__chips">
+              <span class="ai__chip">Спланировать бюджет</span>
+              <span class="ai__chip">Найти лишние траты</span>
+            </div>
+            <div class="ai__input">
+              <div class="ai__field">
+                <span style="color:var(--text-3);font-size:var(--fs-sm)">Спросите что угодно…</span>
+                <span class="ai__send" aria-hidden="true">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                </span>
+              </div>
+              <div class="ai__meta">
+                <span class="ai__flag"><span class="pill__dot"></span>Глубокий анализ</span>
+                <span class="ai__model">Finpath AI 2.0</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ MARQUEE ============================ -->
+<div class="marquee" aria-label="Поддерживаемые интеграции">
+  <div class="marquee__track" id="marquee">
+    <span class="marquee__item"><span class="pill__dot"></span>Банковские карты</span>
+    <span class="marquee__item"><span class="pill__dot"></span>Брокерские счета</span>
+    <span class="marquee__item"><span class="pill__dot"></span>Система быстрых платежей</span>
+    <span class="marquee__item"><span class="pill__dot"></span>Криптокошельки</span>
+    <span class="marquee__item"><span class="pill__dot"></span>Открытый API</span>
+    <span class="marquee__item"><span class="pill__dot"></span>Экспорт в 1С</span>
+    <span class="marquee__item"><span class="pill__dot"></span>Мультивалютность</span>
+  </div>
+</div>
+
+<!-- ============================ ABOUT ============================ -->
+<section class="section" id="about">
+  <div class="shell about">
+    <aside class="about__aside">
+      <span class="eyebrow reveal"><span class="pill__dot"></span>О платформе</span>
+      <div class="about__tags reveal" style="--d:120ms">
+        <span class="pill">SaaS-платформа</span>
+        <span class="tag-icon tag-icon--lime" aria-hidden="true">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v4M12 17v4M5 12H3M21 12h-2M6.5 6.5 5 5M19 19l-1.5-1.5M17.5 6.5 19 5M5 19l1.5-1.5"/><circle cx="12" cy="12" r="3"/></svg>
+        </span>
+        <span class="pill">ИИ-ассистент</span>
+        <span class="pill">Финансы</span>
+        <span class="pill">Личный бюджет</span>
+        <span class="tag-icon" aria-hidden="true">₽</span>
+        <span class="tag-icon" aria-hidden="true">€</span>
+        <span class="tag-icon" aria-hidden="true">$</span>
+      </div>
+    </aside>
+
+    <div>
+      <p class="about__lead reveal">
+        <b>Finpath</b> — это финансовая экосистема на базе искусственного
+        интеллекта, которая объединяет интеллектуальный анализ расходов,
+        управление картами и аналитику в реальном времени в едином выверенном
+        интерфейсе. Платформа создана, чтобы упрощать сложное: следить за
+        операциями, оптимизировать траты и принимать уверенные финансовые
+        решения без усилий.
+      </p>
+      <p class="about__body reveal" style="--d:140ms">
+        В основе — интеллектуальный ассистент: он даёт персональные подсказки,
+        подсвечивает нетипичную активность и помогает держать деньги под
+        контролем проактивно, а не по факту.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROBLEM & SOLUTION ==================== -->
+<section class="section">
+  <div class="shell">
+    <div class="section__head">
+      <span class="eyebrow reveal"><span class="pill__dot"></span>Проблема и решение</span>
+      <p class="section__muted reveal" style="--d:100ms">От пассивного учёта — к активному контролю над деньгами</p>
+    </div>
+
+    <div class="ps">
+      <div class="ps__problem reveal">
+        <b>Проблема 1</b>
+        <p>Данные разбросаны по банкам, брокерам и таблицам — цельной картины нет ни у кого.</p>
+      </div>
+
+      <div class="ps__lens reveal" style="--d:120ms">
+        <svg class="ps__lens-shape" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 30Q50 -30 100 30Q50 90 0 30Z" fill="currentColor"/>
+        </svg>
+        <span class="ps__lens-badge">Решение</span>
+        <p>
+          Единый дашборд с понятной визуальной аналитикой и встроенным
+          ИИ-ассистентом, который упрощает данные, подсвечивает ключевые
+          закономерности и даёт конкретные финансовые рекомендации в одном месте.
+        </p>
+      </div>
+
+      <div class="ps__problem reveal" style="--d:180ms">
+        <b>Проблема 2</b>
+        <p>Отчёты показывают прошлое, но не подсказывают, что делать дальше.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FEATURES ============================ -->
+<section class="section" id="features">
+  <div class="shell">
+    <div class="section__head">
+      <div>
+        <span class="eyebrow reveal" style="margin-bottom:20px"><span class="pill__dot"></span>Возможности</span>
+        <h2 class="section__title reveal" style="--d:80ms;margin-top:20px">Всё, что нужно для контроля над деньгами</h2>
+      </div>
+      <p class="section__muted reveal" style="--d:140ms">Шесть модулей, которые работают как один продукт</p>
+    </div>
+
+    <div class="bento">
+      <article class="card bento__item bento__item--wide reveal">
+        <span class="bento__icon" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M5 12H3M21 12h-2M6.5 6.5 5 5M19 19l-1.5-1.5M17.5 6.5 19 5M5 19l1.5-1.5"/><circle cx="12" cy="12" r="3.2"/></svg>
+        </span>
+        <h3 class="bento__title">ИИ-ассистент, который знает ваш бюджет</h3>
+        <p class="bento__text">
+          Спросите обычными словами: «сколько я потратил на кофе в марте» или
+          «где сократить 20 тысяч». Ассистент читает историю операций,
+          прогнозирует остаток к концу месяца и предлагает конкретные шаги.
+        </p>
+        <div class="bento__spacer"></div>
+        <div class="ai__chips" style="justify-content:flex-start">
+          <span class="ai__chip">Прогноз на месяц</span>
+          <span class="ai__chip">Поиск подписок</span>
+          <span class="ai__chip">План накоплений</span>
+        </div>
+      </article>
+
+      <article class="card bento__item reveal" style="--d:80ms">
+        <span class="bento__icon" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20M6 15h3"/></svg>
+        </span>
+        <h3 class="bento__title">Управление картами</h3>
+        <p class="bento__text">Лимиты, заморозка в один тап, виртуальные карты для подписок и раздельные бюджеты.</p>
+      </article>
+
+      <article class="card bento__item reveal" style="--d:120ms">
+        <span class="bento__icon" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
+        </span>
+        <h3 class="bento__title">Аналитика в реальном времени</h3>
+        <p class="bento__text">Потоки денег, категории и динамика обновляются в момент операции — без выгрузок.</p>
+      </article>
+
+      <article class="card bento__item bento__item--wide reveal" style="--d:160ms">
+        <span class="bento__icon" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/><circle cx="19" cy="17" r="2.5"/></svg>
+        </span>
+        <h3 class="bento__title">Единая история операций</h3>
+        <p class="bento__text">
+          Карты, счета, брокерские портфели и кошельки — в одной ленте с автокатегориями,
+          поиском по названию и экспортом в CSV или 1С.
+        </p>
+        <div class="bento__spacer"></div>
+        <div class="tx" aria-hidden="true">
+          <div class="tx__row"><span class="brand">O</span><span class="tx__name">Ozon</span><span class="tx__date">28.03.26</span><span class="tx__sum down">−4 448 ₽</span></div>
+          <div class="tx__row"><span class="brand">А</span><span class="tx__name">Алексей Смирнов</span><span class="tx__date">28.03.26</span><span class="tx__sum up">+28 000 ₽</span></div>
+        </div>
+      </article>
+
+      <article class="card bento__item bento__item--tall reveal" style="--d:200ms">
+        <span class="bento__icon" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 8.6 8 10 4.6-1.4 8-5 8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        </span>
+        <h3 class="bento__title">Безопасность по умолчанию</h3>
+        <p class="bento__text">Шифрование AES-256, двухфакторный вход и доступ только на чтение к банковским данным — списать деньги через платформу технически нельзя.</p>
+      </article>
+
+      <article class="card bento__item bento__item--tall reveal" style="--d:240ms">
+        <span class="bento__icon" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        </span>
+        <h3 class="bento__title">Умные уведомления</h3>
+        <p class="bento__text">Сигнал приходит до просадки бюджета, а не после: нетипичная трата, рост подписки, риск овердрафта.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ METRICS ============================ -->
+<section class="section" style="padding-top:0">
+  <div class="shell metrics">
+    <div class="card metric reveal">
+      <div class="metric__value num">142<span>K</span></div>
+      <div class="metric__label">активных пользователей</div>
+    </div>
+    <div class="card metric reveal" style="--d:70ms">
+      <div class="metric__value num">18<span>%</span></div>
+      <div class="metric__label">средняя экономия за квартал</div>
+    </div>
+    <div class="card metric reveal" style="--d:140ms">
+      <div class="metric__value num">3<span>&nbsp;сек</span></div>
+      <div class="metric__label">отклик ИИ-ассистента</div>
+    </div>
+    <div class="card metric reveal" style="--d:210ms">
+      <div class="metric__value num">99,9<span>%</span></div>
+      <div class="metric__label">доступность сервиса</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ANALYTICS ============================ -->
+<section class="section" id="analytics" style="padding-top:0">
+  <div class="shell">
+    <div class="section__head">
+      <div>
+        <span class="eyebrow reveal"><span class="pill__dot"></span>Аналитика</span>
+        <h2 class="section__title reveal" style="--d:80ms;margin-top:20px">Видно всё: от денежного потока до одной подписки</h2>
+      </div>
+      <p class="section__muted reveal" style="--d:140ms">Данные обновляются в момент операции</p>
+    </div>
+
+    <div class="app">
+      <div class="app__grid">
+
+        <!-- Денежный поток -->
+        <div class="panel col-8 reveal">
+          <div class="flow__top">
+            <div>
+              <div class="panel__sub">Денежный поток</div>
+              <div class="flow__amount num"><span class="cur">₽</span>967 881<span class="frac">,12</span></div>
+            </div>
+            <div class="seg" id="flowSeg">
+              <button class="is-active" type="button">Доход</button>
+              <button type="button">Расход</button>
+              <button type="button">Накопления</button>
+            </div>
+          </div>
+          <div class="chart" id="chart"></div>
+        </div>
+
+        <!-- Категории -->
+        <div class="panel col-4 reveal" style="--d:100ms">
+          <div class="panel__head">
+            <span class="panel__title">Категории расходов</span>
+            <span class="panel__sub">март</span>
+          </div>
+          <div class="donut">
+            <div class="donut__chart">
+              <svg viewBox="0 0 42 42" style="transform:rotate(-90deg)" aria-hidden="true">
+                <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--surface-3)" stroke-width="5"/>
+                <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--accent-ink)" stroke-width="5" stroke-dasharray="34 66" stroke-dashoffset="0" stroke-linecap="round"/>
+                <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--lime-deep)" stroke-width="5" stroke-dasharray="26 74" stroke-dashoffset="-34" stroke-linecap="round"/>
+                <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--text-3)" stroke-width="5" stroke-dasharray="21 79" stroke-dashoffset="-60" stroke-linecap="round"/>
+              </svg>
+              <div class="donut__center">
+                <b class="num">184 200</b>
+                <span>всего, ₽</span>
+              </div>
+            </div>
+            <div class="legend">
+              <div class="legend__row"><span class="legend__swatch" style="--c:var(--lime)"></span>Жильё<span class="num">34%</span></div>
+              <div class="legend__row"><span class="legend__swatch" style="--c:var(--lime-deep)"></span>Продукты<span class="num">26%</span></div>
+              <div class="legend__row"><span class="legend__swatch" style="--c:var(--text-3)"></span>Транспорт<span class="num">21%</span></div>
+              <div class="legend__row"><span class="legend__swatch" style="--c:var(--surface-3)"></span>Прочее<span class="num">19%</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Карта -->
+        <div class="col-4 reveal" style="--d:160ms">
+          <div class="bankcard bankcard--lime">
+            <span class="bankcard__glow" aria-hidden="true"></span>
+            <div class="bankcard__top"><span>Finpath Основная</span><span>VISA</span></div>
+            <div class="bankcard__num num">•••• •••• •••• 3625</div>
+            <div class="bankcard__bottom">
+              <span>Доступно<b class="num">1 104 300 ₽</b></span>
+              <span>04/29</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Цели -->
+        <div class="panel col-4 reveal" style="--d:220ms">
+          <div class="panel__head">
+            <span class="panel__title">Цели накоплений</span>
+          </div>
+          <div class="goal">
+            <div class="goal__row">Резервный фонд <span class="num">78%</span></div>
+            <div class="track"><span class="track__fill" style="--p:78%"></span></div>
+          </div>
+          <div class="goal">
+            <div class="goal__row">Отпуск <span class="num">42%</span></div>
+            <div class="track"><span class="track__fill" style="--p:42%"></span></div>
+          </div>
+          <div class="goal">
+            <div class="goal__row">Ремонт <span class="num">25%</span></div>
+            <div class="track"><span class="track__fill" style="--p:25%"></span></div>
+          </div>
+        </div>
+
+        <!-- Совет ИИ -->
+        <div class="panel col-4 reveal" style="--d:280ms">
+          <div class="panel__head">
+            <span class="panel__title">Инсайт от ИИ</span>
+            <span class="pill pill--lime" style="padding:5px 12px;font-size:var(--fs-xs)">новое</span>
+          </div>
+          <p style="font-size:var(--fs-sm);color:var(--text-2)">
+            Подписки выросли на <b style="color:var(--text)">2 340 ₽</b> за месяц.
+            Три сервиса не использовались более 60 дней — отключение сэкономит
+            <b style="color:var(--accent-ink)">28 080 ₽</b> в год.
+          </p>
+          <div class="bento__spacer"></div>
+          <a href="dashboard.html" class="btn btn--ghost" style="justify-content:space-between">
+            Открыть подписки
+            <svg class="btn__arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:center;margin-top:var(--sp-5)">
+      <a href="dashboard.html" class="btn btn--primary reveal">
+        Открыть полный дашборд
+        <svg class="btn__arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ STEPS ============================ -->
+<section class="section" style="padding-top:0">
+  <div class="shell">
+    <div class="section__head">
+      <h2 class="section__title reveal">Три шага до полной картины</h2>
+      <p class="section__muted reveal" style="--d:100ms">Настройка занимает около четырёх минут</p>
+    </div>
+    <div class="steps">
+      <article class="card step reveal">
+        <span class="step__no num">01</span>
+        <h3>Подключите счета</h3>
+        <p>Карты, банковские и брокерские счета подключаются по защищённому протоколу — только на чтение, без права списаний.</p>
+      </article>
+      <article class="card step reveal" style="--d:90ms">
+        <span class="step__no num">02</span>
+        <h3>Дайте ИИ 24 часа</h3>
+        <p>Ассистент разбирает историю операций, строит категории и находит закономерности в тратах за последние 12 месяцев.</p>
+      </article>
+      <article class="card step reveal" style="--d:180ms">
+        <span class="step__no num">03</span>
+        <h3>Управляйте, а не считайте</h3>
+        <p>Получайте прогнозы, лимиты и рекомендации в одном дашборде. Отчёты собираются сами — вам остаются решения.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PRICING ============================ -->
+<section class="section" id="pricing" style="padding-top:0">
+  <div class="shell">
+    <div class="section__head">
+      <div>
+        <span class="eyebrow reveal"><span class="pill__dot"></span>Тарифы</span>
+        <h2 class="section__title reveal" style="--d:80ms;margin-top:20px">Прозрачная цена без скрытых комиссий</h2>
+      </div>
+      <p class="section__muted reveal" style="--d:140ms">При оплате за год — два месяца в подарок</p>
+    </div>
+
+    <div class="plans">
+      <article class="card plan reveal">
+        <div class="plan__name">Старт</div>
+        <div class="plan__price num">0 ₽<small>/ навсегда</small></div>
+        <p class="plan__desc">Чтобы навести порядок в личных деньгах.</p>
+        <ul class="plan__list">
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>До 2 счетов</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Базовая аналитика расходов</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>20 запросов к ИИ в месяц</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>История за 3 месяца</li>
+        </ul>
+        <a href="dashboard.html" class="btn btn--ghost">Начать бесплатно</a>
+      </article>
+
+      <article class="card plan plan--featured reveal" style="--d:90ms">
+        <div class="plan__name">Про <span class="plan__badge">Популярный</span></div>
+        <div class="plan__price num">790 ₽<small>/ месяц</small></div>
+        <p class="plan__desc">Полный контроль и ИИ без ограничений.</p>
+        <ul class="plan__list">
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Неограниченное число счетов</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>ИИ-ассистент без лимитов</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Прогнозы и умные уведомления</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Виртуальные карты и лимиты</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Экспорт в CSV и 1С</li>
+        </ul>
+        <a href="dashboard.html" class="btn btn--primary">Попробовать 14 дней</a>
+      </article>
+
+      <article class="card plan reveal" style="--d:180ms">
+        <div class="plan__name">Бизнес</div>
+        <div class="plan__price num">2 490 ₽<small>/ месяц</small></div>
+        <p class="plan__desc">Для команд и семейных бюджетов.</p>
+        <ul class="plan__list">
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Всё из тарифа «Про»</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>До 10 участников и роли доступа</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Открытый API и вебхуки</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Персональный менеджер</li>
+        </ul>
+        <a href="dashboard.html" class="btn btn--ghost">Связаться с нами</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FAQ ============================ -->
+<section class="section" style="padding-top:0">
+  <div class="shell">
+    <div class="section__head" style="justify-content:center;text-align:center">
+      <h2 class="section__title reveal" style="max-width:100%">Частые вопросы</h2>
+    </div>
+    <div class="faq">
+      <details class="faq__item reveal">
+        <summary class="faq__q">Насколько безопасно подключать банковские счета?<span class="sr-only"> Раскрыть ответ</span></summary>
+        <p class="faq__a">Finpath получает доступ только на чтение — списать деньги через платформу технически невозможно. Данные передаются по защищённому каналу и хранятся в зашифрованном виде (AES-256). Вход защищён двухфакторной аутентификацией, а отключить любой счёт можно в один клик.</p>
+      </details>
+      <details class="faq__item reveal" style="--d:60ms">
+        <summary class="faq__q">Что именно делает ИИ-ассистент?</summary>
+        <p class="faq__a">Он разбирает историю операций и отвечает на вопросы обычным языком: куда уходят деньги, где переплата, сколько останется к концу месяца. Дополнительно ассистент подсвечивает нетипичные траты, находит забытые подписки и предлагает план накоплений под вашу цель.</p>
+      </details>
+      <details class="faq__item reveal" style="--d:120ms">
+        <summary class="faq__q">Работает ли платформа с несколькими валютами?</summary>
+        <p class="faq__a">Да. Счета можно вести в рублях, долларах, евро и других валютах — баланс пересчитывается по актуальному курсу, а аналитика строится как по каждой валюте отдельно, так и в общем эквиваленте.</p>
+      </details>
+      <details class="faq__item reveal" style="--d:180ms">
+        <summary class="faq__q">Можно ли выгрузить данные?</summary>
+        <p class="faq__a">Операции, категории и отчёты выгружаются в CSV, XLSX и формат 1С. В тарифах «Про» и «Бизнес» доступен открытый API и вебхуки — можно передавать данные в собственные системы.</p>
+      </details>
+      <details class="faq__item reveal" style="--d:240ms">
+        <summary class="faq__q">Как отменить подписку?</summary>
+        <p class="faq__a">В любой момент из настроек профиля, без звонков и писем. Доступ сохраняется до конца оплаченного периода, а данные остаются в аккаунте — при возврате ничего настраивать заново не придётся.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CTA ============================ -->
+<section class="section" style="padding-top:0">
+  <div class="shell">
+    <div class="cta reveal">
+      <span class="eyebrow"><span class="pill__dot"></span>14 дней бесплатно</span>
+      <h2 class="cta__title">Начните управлять деньгами проактивно</h2>
+      <p class="cta__text">
+        Подключите первый счёт за четыре минуты и посмотрите, что ИИ найдёт
+        в вашей истории операций. Карта для старта не нужна.
+      </p>
+      <div class="hero__cta">
+        <a href="dashboard.html" class="btn btn--primary">
+          Открыть Finpath
+          <svg class="btn__arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </a>
+        <a href="#pricing" class="btn btn--ghost">Сравнить тарифы</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="footer">
+  <div class="shell">
+    <div class="footer__grid">
+      <div>
+        <a href="index.html" class="logo">
+          <svg class="logo__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2 15.2 8.8 22 12l-6.8 3.2L12 22l-3.2-6.8L2 12l6.8-3.2z" fill="currentColor"/>
+            <circle cx="12" cy="12" r="2.6" fill="#0a0a0a"/>
+          </svg>
+          Finpath
+        </a>
+        <p class="footer__about">
+          ИИ-платформа для управления личными и семейными финансами.
+          Аналитика, карты и прогнозы в одном интерфейсе.
+        </p>
+      </div>
+      <div class="footer__col">
+        <h4>Продукт</h4>
+        <ul>
+          <li><a href="#features">Возможности</a></li>
+          <li><a href="#analytics">Аналитика</a></li>
+          <li><a href="dashboard.html">Дашборд</a></li>
+          <li><a href="#pricing">Тарифы</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Компания</h4>
+        <ul>
+          <li><a href="#about">О платформе</a></li>
+          <li><a href="#about">Блог</a></li>
+          <li><a href="#about">Вакансии</a></li>
+          <li><a href="#about">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Правовое</h4>
+        <ul>
+          <li><a href="#about">Условия использования</a></li>
+          <li><a href="#about">Политика конфиденциальности</a></li>
+          <li><a href="#about">Обработка данных</a></li>
+          <li><a href="#about">Безопасность</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__wordmark" aria-hidden="true">FINPATH</div>
+
+    <div class="footer__bottom">
+      <span>© 2026 Finpath. Демонстрационный проект.</span>
+      <span>Сделано по мотивам концепта Finpath</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
