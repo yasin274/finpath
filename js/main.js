@@ -149,15 +149,29 @@
   /* ---------- График денежного потока ----------------------------- */
   var MONTHS = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
 
+  // Демо-набор в тысячах рублей — он же значения по умолчанию для превью на
+  // лендинге. Реальные данные приходят из API уже в рублях, поэтому масштаб
+  // вынесен в отдельную переменную (см. Finpath.setFlow ниже).
   var FLOW = {
     'Доход': [286, 371, 468, 402, 561, 624, 497, 668, 806, 690, 574, 742],
     'Расход': [218, 297, 412, 356, 331, 468, 542, 431, 372, 415, 508, 596],
     'Накопления': [68, 74, 56, 46, 230, 156, 42, 237, 434, 275, 66, 146]
   };
 
+  var flowScale = 1000;
+  var flowLabels = MONTHS;
+  var flowKey = 'Доход';
+
   function renderChart(host, key) {
     var data = FLOW[key] || FLOW['Доход'];
-    var max = Math.max.apply(null, data);
+    if (!data || !data.length) {
+      host.innerHTML = '<p class="chart__empty">Операций за период нет</p>';
+      return;
+    }
+
+    // Все столбцы нулевые (новый аккаунт без операций) — деление на max дало бы
+    // NaN и пустой график вместо честной ровной линии.
+    var max = Math.max.apply(null, data) || 1;
     var peak = data.indexOf(max);
 
     host.innerHTML = data
@@ -172,11 +186,11 @@
           i * 45 +
           'ms">' +
           '<span class="bar__tip">' +
-          rub.format(value * 1000) +
+          rub.format(Math.round(value * flowScale)) +
           ' ₽</span>' +
           '<span class="bar__fill"></span>' +
           '<span class="bar__label">' +
-          MONTHS[i] +
+          (flowLabels[i] || '') +
           '</span>' +
           '</div>'
         );
@@ -188,7 +202,7 @@
   var flowSeg = document.getElementById('flowSeg');
 
   if (chart) {
-    renderChart(chart, 'Доход');
+    renderChart(chart, flowKey);
 
     if (flowSeg) {
       flowSeg.addEventListener('click', function (e) {
@@ -197,10 +211,33 @@
         flowSeg.querySelectorAll('button').forEach(function (b) {
           b.classList.toggle('is-active', b === btn);
         });
-        renderChart(chart, btn.textContent.trim());
+        flowKey = btn.textContent.trim();
+        renderChart(chart, flowKey);
       });
     }
   }
+
+  /**
+   * Точка входа для dashboard.js: подменить данные графика на настоящие.
+   *
+   * Живёт здесь, а не в дашборде, потому что вся отрисовка столбцов и
+   * переключение «Доход / Расход / Накопления» уже реализованы в этом файле и
+   * используются ещё и превью на лендинге. Дублировать их ради другого
+   * источника данных незачем — меняется только сам набор.
+   *
+   * scale: во сколько раз значения меньше рублей (у демо-набора — в тысячах).
+   */
+  window.Finpath = window.Finpath || {};
+
+  window.Finpath.setFlow = function (data, labels, scale) {
+    FLOW = data;
+    flowLabels = labels || MONTHS;
+    flowScale = typeof scale === 'number' ? scale : 1;
+
+    // Активная вкладка сохраняется: при обновлении данных выбор пользователя
+    // сбрасывать нельзя — иначе он «прыгает» обратно на «Доход».
+    if (chart) renderChart(chart, flowKey);
+  };
 
   /* ---------- Универсальные сегментированные переключатели -------- */
   document.querySelectorAll('.seg').forEach(function (seg) {

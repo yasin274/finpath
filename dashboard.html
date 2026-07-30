@@ -55,7 +55,8 @@
       <button class="icon-btn" type="button" aria-label="Настройки">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2 2 2 0 1 1-4 0 1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 4 15a2 2 0 1 1 0-4 1.7 1.7 0 0 0 1.2-2.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 11 4a2 2 0 1 1 4 0 1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.7 1.7 0 0 0 20 11a2 2 0 1 1 0 4z"/></svg>
       </button>
-      <span class="avatar" aria-label="Профиль: Степан">СК</span>
+      <button class="card-chip fp-auth" id="fpAuthBtn" type="button">Войти</button>
+      <span class="avatar" id="fpAvatar" aria-label="Профиль">СК</span>
 
       <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="nav">
         <span></span><span></span>
@@ -74,8 +75,13 @@
         <a href="index.html" class="icon-btn" aria-label="Назад на сайт">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
         </a>
-        <h1>Здравствуйте, Степан</h1>
+        <h1 id="fpGreeting">Здравствуйте, Степан</h1>
       </div>
+
+      <button class="card-chip fp-add" id="fpAddBtn" type="button" hidden>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        Операция
+      </button>
 
       <button class="icon-btn" type="button" aria-label="Поиск">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>
@@ -88,7 +94,7 @@
       </button>
       <span class="card-chip">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg>
-        <span class="num">•••• 3625</span>
+        <span class="num" id="fpAccountChip">•••• 3625</span>
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
       </span>
     </div>
@@ -101,8 +107,8 @@
         <div class="panel__head">
           <div>
             <div class="panel__sub" id="balance-title">Общий баланс</div>
-            <div class="balance__amount num"><span class="cur">₽</span>3 428 900<span class="frac">,00</span></div>
-            <div class="balance__delta">
+            <div class="balance__amount num" id="fpBalance"><span class="cur">₽</span>3 428 900<span class="frac">,00</span></div>
+            <div class="balance__delta" id="fpBalanceDelta">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
               +4,8% за месяц
             </div>
@@ -131,7 +137,7 @@
               <circle cx="392" cy="106" r="58" fill="var(--surface-3)"/>
             </g>
           </svg>
-          <div class="blobs__labels" aria-hidden="true">
+          <div class="blobs__labels" id="fpBlobLabels" aria-hidden="true">
             <div class="blob-label" style="left:14.3%;top:56%"><b>412 700</b><span>Дебетовая</span></div>
             <div class="blob-label blob-label--on-lime" style="left:49%;top:51%"><b>1 104 300</b><span>Основная</span></div>
             <div class="blob-label" style="left:85%;top:54%"><b>1 911 900</b><span>Накопления</span></div>
@@ -228,7 +234,7 @@
         <div class="flow__top">
           <div>
             <div class="panel__sub" id="flow-title">Денежный поток</div>
-            <div class="flow__amount num"><span class="cur">₽</span>967 881<span class="frac">,12</span></div>
+            <div class="flow__amount num" id="fpFlowAmount"><span class="cur">₽</span>967 881<span class="frac">,12</span></div>
           </div>
           <div style="display:flex;gap:var(--sp-2);align-items:center;flex-wrap:wrap">
             <div class="seg" id="flowSeg" role="group" aria-label="Тип потока">
@@ -253,7 +259,7 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
           </button>
         </div>
-        <div class="tx">
+        <div class="tx" id="fpTx">
           <div class="tx__row">
             <span class="brand" aria-hidden="true">P</span>
             <span class="tx__name">PlayStation Store</span>
@@ -297,22 +303,22 @@
       <div class="col-4 reveal" id="cards" style="--d:60ms">
         <div class="bankcard bankcard--lime">
           <span class="bankcard__glow" aria-hidden="true"></span>
-          <div class="bankcard__top"><span>Finpath Основная</span><span>VISA</span></div>
+          <div class="bankcard__top"><span id="fpCard1Name">Finpath Основная</span><span>VISA</span></div>
           <div class="bankcard__num num">•••• •••• •••• 3625</div>
           <div class="bankcard__bottom">
-            <span>Доступно<b class="num">1 104 300 ₽</b></span>
+            <span>Доступно<b class="num" id="fpCard1Sum">1 104 300 ₽</b></span>
             <span>04/29</span>
           </div>
         </div>
       </div>
 
-      <div class="col-4 reveal" style="--d:120ms">
+      <div class="col-4 reveal" id="fpCard2Slot" style="--d:120ms">
         <div class="bankcard">
           <span class="bankcard__glow" aria-hidden="true"></span>
-          <div class="bankcard__top"><span>Finpath Виртуальная</span><span>MIR</span></div>
+          <div class="bankcard__top"><span id="fpCard2Name">Finpath Виртуальная</span><span>MIR</span></div>
           <div class="bankcard__num num">•••• •••• •••• 8814</div>
           <div class="bankcard__bottom">
-            <span>Лимит на подписки<b class="num">15 000 ₽</b></span>
+            <span>Лимит на подписки<b class="num" id="fpCard2Sum">15 000 ₽</b></span>
             <span>11/28</span>
           </div>
         </div>
@@ -342,22 +348,24 @@
       <section class="panel col-8 reveal" id="analytics" style="--d:60ms" aria-labelledby="cat-title">
         <div class="panel__head">
           <span class="panel__title" id="cat-title">Категории расходов</span>
-          <span class="panel__sub">март 2026</span>
+          <span class="panel__sub" id="fpCatPeriod">март 2026</span>
         </div>
         <div class="donut">
-          <div class="donut__chart" role="img" aria-label="Жильё 34%, продукты 26%, транспорт 21%, прочее 19%">
+          <div class="donut__chart" id="fpDonut" role="img" aria-label="Жильё 34%, продукты 26%, транспорт 21%, прочее 19%">
             <svg viewBox="0 0 42 42" style="transform:rotate(-90deg)" aria-hidden="true">
               <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--surface-3)" stroke-width="5"/>
-              <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--accent-ink)" stroke-width="5" stroke-dasharray="34 66" stroke-linecap="round"/>
-              <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--lime-deep)" stroke-width="5" stroke-dasharray="26 74" stroke-dashoffset="-34" stroke-linecap="round"/>
-              <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--text-3)" stroke-width="5" stroke-dasharray="21 79" stroke-dashoffset="-60" stroke-linecap="round"/>
+              <g id="fpDonutArcs">
+                <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--accent-ink)" stroke-width="5" stroke-dasharray="34 66" stroke-linecap="round"/>
+                <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--lime-deep)" stroke-width="5" stroke-dasharray="26 74" stroke-dashoffset="-34" stroke-linecap="round"/>
+                <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--text-3)" stroke-width="5" stroke-dasharray="21 79" stroke-dashoffset="-60" stroke-linecap="round"/>
+              </g>
             </svg>
             <div class="donut__center">
-              <b class="num">184 200</b>
+              <b class="num" id="fpDonutTotal">184 200</b>
               <span>всего, ₽</span>
             </div>
           </div>
-          <div class="legend">
+          <div class="legend" id="fpLegend">
             <div class="legend__row"><span class="legend__swatch" style="--c:var(--lime)"></span>Жильё<span class="num">62 600</span></div>
             <div class="legend__row"><span class="legend__swatch" style="--c:var(--lime-deep)"></span>Продукты<span class="num">47 900</span></div>
             <div class="legend__row"><span class="legend__swatch" style="--c:var(--text-3)"></span>Транспорт<span class="num">38 700</span></div>
@@ -389,12 +397,102 @@
 
     </div>
 
-    <p style="margin-top:var(--sp-4);color:var(--text-3);font-size:var(--fs-xs)">
+    <p style="margin-top:var(--sp-4);color:var(--text-3);font-size:var(--fs-xs)" id="fpNotice">
       Демонстрационные данные. <a href="index.html" class="back-link">Вернуться на сайт</a>
     </p>
   </div>
 </main>
 
+<!-- ============================ ВХОД И РЕГИСТРАЦИЯ ============================ -->
+<div class="fp-modal" id="fpAuthModal" hidden>
+  <div class="fp-modal__backdrop" data-fp-close></div>
+  <div class="panel fp-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="fpAuthTitle">
+    <div class="panel__head">
+      <span class="panel__title" id="fpAuthTitle">Вход в Finpath</span>
+      <button class="corner-btn" type="button" data-fp-close aria-label="Закрыть">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+
+    <div class="seg fp-modal__tabs" id="fpAuthTabs" role="group" aria-label="Вход или регистрация">
+      <button class="is-active" type="button" data-mode="login">Вход</button>
+      <button type="button" data-mode="register">Регистрация</button>
+    </div>
+
+    <form id="fpAuthForm" class="fp-form" novalidate>
+      <label class="fp-field">
+        <span>Email</span>
+        <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+      </label>
+      <label class="fp-field">
+        <span>Пароль</span>
+        <input type="password" name="password" autocomplete="current-password" placeholder="не короче 8 символов" required>
+      </label>
+
+      <p class="fp-error" id="fpAuthError" role="alert" hidden></p>
+
+      <button class="btn btn--primary" type="submit" id="fpAuthSubmit">Войти</button>
+    </form>
+
+    <p class="fp-modal__hint">
+      Без входа дашборд показывает демонстрационные данные — так и задумано.
+    </p>
+  </div>
+</div>
+
+<!-- ============================ НОВАЯ ОПЕРАЦИЯ ============================ -->
+<div class="fp-modal" id="fpTxModal" hidden>
+  <div class="fp-modal__backdrop" data-fp-close></div>
+  <div class="panel fp-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="fpTxTitle">
+    <div class="panel__head">
+      <span class="panel__title" id="fpTxTitle">Новая операция</span>
+      <button class="corner-btn" type="button" data-fp-close aria-label="Закрыть">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+
+    <form id="fpTxForm" class="fp-form" novalidate>
+      <div class="seg fp-modal__tabs" id="fpTxKind" role="group" aria-label="Тип операции">
+        <button class="is-active" type="button" data-kind="EXPENSE">Расход</button>
+        <button type="button" data-kind="INCOME">Доход</button>
+      </div>
+
+      <label class="fp-field">
+        <span>Сумма, ₽</span>
+        <input type="number" name="amount" min="0.01" step="0.01" placeholder="1500" required>
+      </label>
+
+      <label class="fp-field">
+        <span>Счёт</span>
+        <select name="accountId" id="fpTxAccount" required></select>
+      </label>
+
+      <label class="fp-field">
+        <span>Категория</span>
+        <select name="categoryId" id="fpTxCategory">
+          <option value="">Без категории</option>
+        </select>
+      </label>
+
+      <label class="fp-field">
+        <span>Описание</span>
+        <input type="text" name="description" maxlength="200" placeholder="Пятёрочка">
+      </label>
+
+      <label class="fp-field">
+        <span>Дата</span>
+        <input type="date" name="occurredAt">
+      </label>
+
+      <p class="fp-error" id="fpTxError" role="alert" hidden></p>
+
+      <button class="btn btn--primary" type="submit" id="fpTxSubmit">Добавить</button>
+    </form>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
 <script src="js/main.js"></script>
+<script src="js/dashboard.js"></script>
 </body>
 </html>

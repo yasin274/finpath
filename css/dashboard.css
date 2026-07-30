@@ -930,3 +930,156 @@
     font-size: 0.66rem;
   }
 }
+
+/* ============================================================
+   Слой данных: вход, регистрация, форма операции.
+
+   Всё ниже — ДОПОЛНЕНИЕ к существующим стилям, ни одно правило выше не
+   переопределяется. Диалоги собраны из уже готовых кирпичей (.panel, .btn,
+   .seg, .corner-btn), поэтому новых визуальных решений здесь почти нет —
+   только раскладка и поля ввода, которых в макете не было.
+   ============================================================ */
+
+.fp-modal {
+  position: fixed;
+  inset: 0;
+  /* Выше липкой шапки: у .header z-index 60. */
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: var(--sp-3);
+}
+
+.fp-modal[hidden] {
+  display: none;
+}
+
+.fp-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(3px);
+}
+
+.fp-modal__dialog {
+  position: relative;
+  width: min(420px, 100%);
+  max-height: calc(100vh - 2 * var(--sp-3));
+  overflow-y: auto;
+  box-shadow: var(--shadow-card);
+  animation: fp-modal-in var(--dur) var(--ease) both;
+}
+
+@keyframes fp-modal-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Пользователь просил меньше движения — уважаем это и здесь. */
+@media (prefers-reduced-motion: reduce) {
+  .fp-modal__dialog { animation: none; }
+}
+
+.fp-modal__tabs {
+  align-self: flex-start;
+}
+
+.fp-modal__tabs button.is-active {
+  background: var(--surface-3);
+  color: var(--text);
+}
+
+.fp-modal__hint {
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+.fp-form {
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.fp-field {
+  display: grid;
+  gap: 6px;
+}
+
+.fp-field > span {
+  font-size: var(--fs-xs);
+  color: var(--text-3);
+}
+
+.fp-field input,
+.fp-field select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface-inset);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--fs-sm);
+  outline: none;
+  transition: border-color var(--dur) var(--ease);
+}
+
+.fp-field input:focus,
+.fp-field select:focus {
+  border-color: var(--lime);
+}
+
+.fp-field input::placeholder {
+  color: var(--text-3);
+}
+
+/* Календарь и стрелки в тёмной теме иначе остаются чёрными на чёрном. */
+[data-theme="dark"] .fp-field input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) opacity(0.55);
+}
+
+.fp-error {
+  font-size: var(--fs-xs);
+  color: var(--down);
+}
+
+.fp-error[hidden] {
+  display: none;
+}
+
+.fp-form .btn {
+  margin-top: var(--sp-1);
+  width: 100%;
+}
+
+/* Кнопки в шапке и панели инструментов — те же «чипы», что и рядом. */
+.fp-auth,
+.fp-add {
+  cursor: pointer;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.fp-auth:hover,
+.fp-add:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.fp-add[hidden] {
+  display: none;
+}
+
+/* Пустое состояние: у нового аккаунта операций ещё нет, и молчащий блок
+   выглядит как поломка. Лучше сказать прямо. */
+.fp-empty,
+.chart__empty {
+  padding: var(--sp-4) 0;
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--text-3);
+}
+
+.chart__empty {
+  display: grid;
+  place-content: center;
+  height: 100%;
+}
