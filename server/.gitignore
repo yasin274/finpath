@@ -1,0 +1,17 @@
+node_modules/
+dist/
+
+# Секреты. В репозиторий едет только .env.example с плейсхолдерами.
+.env
+.env.*
+!.env.example
+
+# Prisma Client генерируется локально командой `npm run prisma:generate`
+src/generated/
+
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

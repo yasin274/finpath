@@ -1,0 +1,155 @@
+// Схема БД сервиса Finpath — личные финансы: счета, операции, аналитика.
+//
+// Prisma 7: генератор `prisma-client` (не `prisma-client-js`), `output` обязателен,
+// строка подключения задаётся в prisma.config.ts, а не через env() здесь.
+//
+// ВАЖНО про префикс finpath_ у всех таблиц и enum'ов.
+// База может быть общей с другими проектами автора, а имена вроде `users`,
+// `accounts` или `transactions` — самые вероятные из возможных коллизий.
+// Prisma не изолирует схемы по умолчанию, поэтому изоляцию делаем именами:
+// в коде модели называются нормально (User, Account), а в БД лежат как
+// finpath_users, finpath_accounts. Переименовать таблицы позже — миграция
+// с простоем, поэтому решается это один раз и сразу.
+
+generator client {
+  provider               = "prisma-client"
+  output                 = "../src/generated/prisma"
+  runtime                = "nodejs"
+  moduleFormat           = "esm"
+  generatedFileExtension = "ts"
+  importFileExtension    = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Тип счёта. Влияет только на подачу в интерфейсе — считаются все одинаково.
+enum AccountType {
+  /// Банковская карта
+  CARD
+  /// Наличные
+  CASH
+  /// Накопительный счёт или вклад
+  SAVINGS
+
+  @@map("finpath_account_type")
+}
+
+/// Направление денег. Один enum на категории и операции намеренно:
+/// категория «Зарплата» не должна попадать в разбивку расходов, и наоборот.
+enum EntryKind {
+  INCOME
+  EXPENSE
+
+  @@map("finpath_entry_kind")
+}
+
+/// Пользователь сервиса.
+model User {
+  id           String @id @default(uuid()) @db.Uuid
+  email        String @unique
+  passwordHash String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  accounts     Account[]
+  categories   Category[]
+  transactions Transaction[]
+
+  @@map("finpath_users")
+}
+
+/// Счёт или карта пользователя.
+model Account {
+  id     String @id @default(uuid()) @db.Uuid
+  userId String @db.Uuid
+
+  name String
+  type AccountType @default(CARD)
+
+  /// Текущий остаток.
+  ///
+  /// Decimal, а не Float: двоичная плавающая точка не представляет 0.1 точно,
+  /// и на длинной ленте операций остаток начинает разъезжаться с суммой строк
+  /// в копейках. Для денег это неприемлемо. Наружу отдаётся обычным number —
+  /// сервисный слой конвертирует (см. src/utils/money.ts).
+  balance Decimal @default(0) @db.Decimal(14, 2)
+
+  /// Код валюты ISO-4217. Мультивалютного пересчёта пока нет — поле хранит
+  /// то, в чём ведётся счёт, чтобы позже не переезжать со схемой.
+  currency String @default("RUB") @db.VarChar(3)
+
+  createdAt DateTime @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  // Названия счетов уникальны в пределах пользователя: два счёта «Основная»
+  // невозможно различить в выпадающем списке, а опознают их именно по названию.
+  @@unique([userId, name])
+  @@index([userId])
+  @@map("finpath_accounts")
+}
+
+/// Категория доходов или расходов.
+model Category {
+  id     String @id @default(uuid()) @db.Uuid
+  userId String @db.Uuid
+
+  name String
+  kind EntryKind @default(EXPENSE)
+
+  /// HEX-цвет для легенды диаграммы, например «#c8f169».
+  color String @default("#8f8f8f") @db.VarChar(9)
+
+  createdAt DateTime @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  // Уникальность с учётом kind: «Подарки» бывают и доходом, и расходом,
+  // и это две разные категории, а не конфликт.
+  @@unique([userId, name, kind])
+  @@index([userId])
+  @@map("finpath_categories")
+}
+
+/// Операция по счёту.
+model Transaction {
+  id         String  @id @default(uuid()) @db.Uuid
+  userId     String  @db.Uuid
+  accountId  String  @db.Uuid
+  categoryId String? @db.Uuid
+
+  /// Сумма ВСЕГДА положительная; направление задаёт `kind`.
+  ///
+  /// Знак в сумме и отдельное поле типа — это два источника правды, которые
+  /// рано или поздно разойдутся (расход с плюсом попадёт в доходы). Поэтому
+  /// сумма — модуль, а знак вычисляется из kind в одном месте.
+  amount Decimal @db.Decimal(14, 2)
+  kind   EntryKind
+
+  /// Назначение платежа или контрагент — то, что видно в списке операций.
+  description String?
+
+  /// Когда операция произошла (её задаёт пользователь) — по этому полю
+  /// строятся все отчёты. createdAt — когда её внесли в систему; для операции
+  /// «задним числом» это разные даты, и путать их нельзя.
+  occurredAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  account  Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  /// Удаление категории не должно уносить с собой операции: деньги ушли,
+  /// даже если рубрику потом упразднили. Поэтому SetNull, а не Cascade.
+  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  // Лента операций и все отчёты фильтруются «мои за период» — индекс покрывает
+  // и WHERE, и ORDER BY одним проходом.
+  @@index([userId, occurredAt])
+  @@index([userId, accountId])
+  @@index([categoryId])
+  @@map("finpath_transactions")
+}
