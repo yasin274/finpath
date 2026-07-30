@@ -15,6 +15,7 @@
     "prisma:generate": "prisma generate",
     "prisma:studio": "prisma studio",
     "db:ddl": "prisma migrate diff --from-empty --to-schema prisma/schema.prisma --script",
+    "db:setup": "node scripts/setup.mjs",
     "keygen": "node --input-type=module -e \"import{randomBytes}from'node:crypto';console.log('JWT_SECRET='+randomBytes(48).toString('base64url'))\""
   },
   "dependencies": {
@@ -25,6 +26,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
+    "pg": "^8.22.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
