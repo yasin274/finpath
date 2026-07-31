@@ -16,7 +16,8 @@
     "prisma:studio": "prisma studio",
     "db:ddl": "prisma migrate diff --from-empty --to-schema prisma/schema.prisma --script",
     "db:setup": "node scripts/setup.mjs",
-    "keygen": "node --input-type=module -e \"import{randomBytes}from'node:crypto';console.log('JWT_SECRET='+randomBytes(48).toString('base64url'))\""
+    "keygen": "node --input-type=module -e \"import{randomBytes}from'node:crypto';console.log('JWT_SECRET='+randomBytes(48).toString('base64url'))\"",
+    "vercel-build": "npm ci --include=dev && prisma generate && tsc -p tsconfig.json"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.9.1",

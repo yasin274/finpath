@@ -491,6 +491,17 @@
   </div>
 </div>
 
+<script>
+/* Где искать API.
+   Локально дашборд раздаёт тот же Express, что и API, — тогда работает
+   относительный путь и вопрос CORS не возникает. В сети страницы лежат на
+   GitHub Pages, а бэкенд развёрнут отдельным проектом: сборщик Vercel
+   кладёт в функцию только то, что прослеживается из кода, и статику
+   внутрь неё не уместить. Поэтому на своих доменах адрес задаётся явно. */
+if (location.hostname.endsWith('github.io') || location.hostname.endsWith('vercel.app')) {
+  window.FINPATH_API_BASE = 'https://finpath-api.vercel.app/api';
+}
+</script>
 <script src="js/api.js"></script>
 <script src="js/main.js"></script>
 <script src="js/dashboard.js"></script>
