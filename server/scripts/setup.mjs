@@ -119,8 +119,9 @@ try {
   const cash = accounts[1].id;
 
   /**
-   * Три месяца операций. Суммы неровные намеренно: ряд из круглых чисел
-   * сразу читается как заглушка, а диаграммы на нём выглядят синтетически.
+   * Ежемесячный набор операций. Суммы неровные намеренно: ряд из круглых
+   * чисел сразу читается как заглушка, а диаграммы на нём выглядят
+   * синтетически.
    */
   const monthly = [
     ['Зарплата', 'INCOME', 96000, card, 'Зарплата за месяц', 5],
@@ -136,19 +137,55 @@ try {
     ['Связь', 'EXPENSE', 650, card, 'Мобильная связь', 3],
   ];
 
+  /**
+   * Двенадцать месяцев, а не три: на дашборде денежный поток строится за год,
+   * и на коротком ряде девять столбцов из двенадцати оставались нулевыми —
+   * график выглядел сломанным, хотя считал правильно.
+   *
+   * Коэффициенты по месяцам заданы списком, а не случайно: демо должно
+   * выглядеть одинаково при каждом прогоне, иначе скриншоты в портфолио
+   * разойдутся с тем, что увидит зашедший.
+   */
+  const SEASONALITY = [0.82, 0.9, 1.05, 0.94, 1.12, 1.2, 0.88, 1.0, 1.15, 0.92, 1.08, 1.0];
+
+  /**
+   * Подработка по месяцам, ноль — месяц без заказов.
+   *
+   * Отдельным списком, потому что доход из двух ровных слагаемых даёт почти
+   * прямую линию: разброс выходил в 6 % и график выглядел сломанным сильнее,
+   * чем когда в нём были нули. Фриланс так и приходит — рывками.
+   */
+  const FREELANCE = [0, 24000, 12500, 0, 31000, 18500, 0, 9800, 42000, 0, 15600, 27300];
+
   const now = new Date();
   let count = 0;
 
-  for (let back = 2; back >= 0; back--) {
+  for (let back = 11; back >= 0; back--) {
+    const slot = (12 - back) % 12;
+    const factor = SEASONALITY[slot];
+
     for (const [category, kind, amount, accountId, description, day] of monthly) {
       const occurredAt = new Date(now.getFullYear(), now.getMonth() - back, day);
       if (occurredAt > now) continue; // операции «из будущего» в текущем месяце
+
+      // Месяц без заказов — операции просто нет, а не нулевая строка:
+      // ноль в ленте выглядит как ошибка ввода.
+      if (category === 'Подработка' && FREELANCE[slot] === 0) continue;
+
+      // Зарплата ровная — её колебания выглядели бы странно; подработка
+      // берётся из своего списка; остальное дышит вместе с сезонностью.
+      const value =
+        category === 'Зарплата'
+          ? amount
+          : category === 'Подработка'
+            ? FREELANCE[slot]
+            : Math.round(amount * factor * 100) / 100;
 
       await client.query(
         `insert into finpath_transactions
            (id, "userId", "accountId", "categoryId", amount, kind, description, "occurredAt")
          values ($1,$2,$3,$4,$5,$6::"finpath_entry_kind",$7,$8)`,
-        [randomUUID(), userId, accountId, cat[category], amount, kind, description, occurredAt],
+        [randomUUID(), userId, accountId, cat[category], value, kind, description, occurredAt],
       );
       count++;
     }

@@ -205,11 +205,21 @@
     renderChart(chart, flowKey);
 
     if (flowSeg) {
+      // Начальное состояние: до первого клика атрибута не было ни на одной
+      // кнопке, и выбранная вкладка ничем не отличалась от остальных.
+      flowSeg.querySelectorAll('button').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.classList.contains('is-active')));
+      });
+
       flowSeg.addEventListener('click', function (e) {
         var btn = e.target.closest('button');
         if (!btn) return;
+        // Класс красит кнопку, aria-pressed сообщает о выборе тем, кто
+        // цвета не видит: у переключателя тем это уже сделано, здесь было
+        // упущено, и скринридер объявлял все три вкладки одинаково.
         flowSeg.querySelectorAll('button').forEach(function (b) {
           b.classList.toggle('is-active', b === btn);
+          b.setAttribute('aria-pressed', String(b === btn));
         });
         flowKey = btn.textContent.trim();
         renderChart(chart, flowKey);
